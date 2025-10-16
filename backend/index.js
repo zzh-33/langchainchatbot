@@ -125,9 +125,7 @@ const createChatHistoryDocs = async (upstashChatHistory) => {
 // 创建参考文档
 const createReferenceDocs = async () => {
 
-    const loader = new JSONLoader(
-        "D:\\projects\\langchainchatbot\\backend\\context.json"
-    );
+    const loader = new JSONLoader(path.join(__dirname, "context.json"));
 
     const referenceDocs = await loader.load(); 
 
