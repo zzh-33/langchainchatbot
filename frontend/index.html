@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>“温情智伴”——老年人情感陪伴助手</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 聊天标题美化 */
+        .chat-title {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(43, 75, 163, 0.05);
+        }
+
+        .chat-title h2 {
+            font-size: 24px;
+            color: #344f82;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .chat-title p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* 聊天页脚美化 */
+        .chat-footer {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            color: #718096;
+            font-size: 13px;
+        }    
+    </style>
+</head>
+
+<body>
+    <div class="cover">
+        <fieldset>
+            <legend class="title"><p>“温情智伴”——你的情感陪伴</p></legend>
+            <div class="description">
+                <p>皱纹里藏着故事，心底盼着倾听</p>
+                <p>岁月渐长，陪伴不减 ——您的喜怒哀乐，都有‘智伴’用心聆听</p>
+            </div>
+        </fieldset>
+    </div>
+    <div class="chat-container" id ="chat">
+        <!-- 添加装饰性标题 -->
+        <div class="chat-title">
+            <h2>情感陪伴聊天室</h2>
+            <p>与您的专属助手畅聊心事</p>
+        </div>
+    
+        <div class="messages" id="messages"></div>
+        <div id="loading" class="loading" style="display: none;">加载中...</div>
+
+        <div class="input-container">
+            <input id="chat-input" type="text" placeholder="在此输入，开始与情感陪伴小助手交谈!" />
+            <button onclick="sendMessage()">发送</button>
+            <div class="dropdown">
+                <button onclick="toggleDropdown(event)">主题</button>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <div class="dropdown-item" onclick="toggleTheme()">
+                        <span>浅色/深色</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 添加底部装饰 -->
+        <div class="chat-footer">
+            <p>温情智伴 · 用心聆听每一份情感</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
