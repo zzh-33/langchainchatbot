@@ -32,6 +32,8 @@ import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { LLMChain } from "langchain/chains";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 
+import { MessagesPlaceholder } from "@langchain/core/prompts";
+import { AIMessage, HumanMessage } from "@langchain/core/messages";
 import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
 
 // 实例化模型和prompt
@@ -61,7 +63,7 @@ const prompt = ChatPromptTemplate.fromMessages([
         {context}
         `
     ],
-
+    new MessagesPlaceholder("chat_history"),
     [
         "user",
         "{input}"
@@ -169,7 +171,7 @@ const createRetriever = async (vectorStore) => {
         ["user", "{input}"],
         [
             "user",
-            `根据上述对话，生成一个可用于查找与该对话相关信息的搜索查询`,
+            `从给定的参考对话中，找出与上一条对话最相关的对话，并以此为参考生成回复`,
         ],
     ]);
 
@@ -212,6 +214,8 @@ const chatHistoryDoc = await createChatHistoryDocs(upstashChatHistory);
 const vectorStore = await createVecorstore(referenceDocs, chatHistoryDoc);
 const retriever = await createRetriever(vectorStore);
 
+const chatHistory = [];
+
 const chain = await createChain(retriever, memory);
 
 
@@ -226,6 +230,7 @@ app.post("/chat", async (req, res) => {
 
         const response = await chain.invoke({
             input: userInput,
+            chat_history: chatHistory
         })
 
         // console.log("模型原始返回:", response.answer.response);
@@ -233,6 +238,9 @@ app.post("/chat", async (req, res) => {
         const content = Array.isArray(response.answer.response)? response.answer.response.map(c => c.text || "").join("") : response.answer.response;
         
         // console.log("处理后返回:", content);
+        
+        chatHistory.push(new HumanMessage(userInput));
+        chatHistory.push(new AIMessage(content));
 
         res.json({
             choices: [
