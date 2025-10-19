@@ -63,7 +63,9 @@ const prompt = ChatPromptTemplate.fromMessages([
         {context}
         `
     ],
+
     new MessagesPlaceholder("chat_history"),
+    
     [
         "user",
         "{input}"
