@@ -91,7 +91,7 @@ async function sendMessage() {
         loadingElement.style.display = 'block';
     }
 
-    fetch("https://langchainchatbot-dmgo.vercel.app/chat", {
+    fetch("/chat", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
