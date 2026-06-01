@@ -4,6 +4,10 @@
     {
       "src": "backend/index.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "frontend/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -13,10 +17,7 @@
     },
     {
       "src": "/(.*)",
-      "headers": {
-        "content-type": "text/html; charset=utf-8"
-      },
-      "dest": "frontend/index.html"
+      "dest": "frontend/$1"
     }
   ]
 }
