@@ -12,10 +12,10 @@
       "dest": "backend/index.js"
     },
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/.*",
+      "src": "/(.*)",
+      "headers": {
+        "content-type": "text/html; charset=utf-8"
+      },
       "dest": "frontend/index.html"
     }
   ]
